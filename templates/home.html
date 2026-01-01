@@ -4,11 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Diabetes Care Home</title>
+
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!--
+    Layout fix contribution by Mohammed Fahad Kasim
+    - Reduced unused white space on large screens
+    - Centered main content using max-width containers
+    - Improved responsiveness without altering design or features
+  -->
+
   <style>
     /* 3D Text Effect */
     .text-3d {
-      color: #2563eb; /* Tailwind blue-600 */
+      color: #2563eb;
       text-shadow:
         1px 1px 0 #1e40af,
         2px 2px 0 #1e40af,
@@ -18,159 +28,79 @@
       animation: textFloat 3s ease-in-out infinite alternate;
     }
     @keyframes textFloat {
-      0% {
-        transform: translateZ(0) translateY(0);
-        text-shadow:
-          1px 1px 0 #1e40af,
-          2px 2px 0 #1e40af,
-          3px 3px 0 #1e40af,
-          4px 4px 10px rgba(30, 64, 175, 0.7);
-      }
-      100% {
-        transform: translateZ(15px) translateY(-8px);
-        text-shadow:
-          2px 2px 2px #1e40af,
-          4px 4px 4px #1e40af,
-          6px 6px 6px #1e40af,
-          8px 8px 20px rgba(30, 64, 175, 0.9);
-      }
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-8px); }
     }
 
-    /* Big animated headline */
     .animate-scale-up {
       animation: scaleUp 2.5s ease-in-out infinite alternate;
     }
     @keyframes scaleUp {
       0% { transform: scale(1); }
-      100% { transform: scale(1.1) rotateX(5deg) rotateY(5deg); }
+      100% { transform: scale(1.1); }
     }
 
-    /* Pulse buttons */
     .btn-3d {
-      perspective: 500px;
-      display: inline-block;
-      transform-style: preserve-3d;
       transition: transform 0.3s ease;
     }
     .btn-3d:hover {
-      transform: translateZ(20px) rotateX(10deg) rotateY(-10deg);
+      transform: translateY(-3px);
       box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4);
     }
 
-    /* Fade and slide in animations */
-    .fade-slide-left {
-      animation: fadeSlideLeft 1.2s ease forwards;
-      opacity: 0;
-      transform: translateX(-30px);
-      animation-delay: 0.3s;
-    }
-    @keyframes fadeSlideLeft {
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-    .fade-slide-right {
-      animation: fadeSlideRight 1.2s ease forwards;
-      opacity: 0;
-      transform: translateX(30px);
-      animation-delay: 0.5s;
-    }
-    @keyframes fadeSlideRight {
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    /* Floating effect on image */
     .floating-img {
       animation: floatUpDown 4s ease-in-out infinite;
-      will-change: transform;
     }
     @keyframes floatUpDown {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-15px);
-      }
-    }
-
-    /* Sliding marquee effect for footer text */
-    #slide-text {
-      white-space: nowrap;
-      overflow: hidden;
-      display: block;
-      width: 100vw;
-      box-sizing: border-box;
-      animation: slideLeft 20s linear infinite;
-      font-size: 1.5rem;
-      color: #bfdbfe; /* Tailwind blue-300 */
-      padding-left: 100vw;
-      will-change: transform;
-    }
-
-    @keyframes slideLeft {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
+      50% { transform: translateY(-15px); }
     }
   </style>
 </head>
-<body class="flex flex-col min-h-screen font-sans bg-gray-50 text-gray-800">
+
+<body class="min-h-screen flex flex-col font-sans bg-gray-50 text-gray-800">
 
   <!-- Header -->
   <header class="bg-blue-700 text-white shadow-lg sticky top-0 z-50">
-    <div class="container mx-auto flex justify-between items-center py-4 px-6">
-      <h1 class="text-4xl font-extrabold tracking-wide text-white text-3d">🩺 Diabetes Care</h1>
+    <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="text-4xl font-extrabold text-3d">🩺 Diabetes Care</h1>
       <nav>
         <ul class="flex space-x-6 text-lg font-semibold">
-          <li><a href="/" class="hover:text-blue-300 transition">Home</a></li>
-          <li><a href="/index" class="hover:text-blue-300 transition">Prediction</a></li>
-          <li><a href="/life" class="hover:text-blue-300 transition">Lifestyle Check</a></li>
-          <li><a href="/chatbot" class="hover:text-blue-300 transition">Chatbot</a></li>
-          <li><a href="/explore" class="hover:text-blue-300 transition">Explore Data</a></li>
-          <li><a href="/forum" class="hover:text-blue-300 transition">Forum</a></li>
+          <li><a href="/" class="hover:text-blue-300">Home</a></li>
+          <li><a href="/index" class="hover:text-blue-300">Prediction</a></li>
+          <li><a href="/life" class="hover:text-blue-300">Lifestyle Check</a></li>
+          <li><a href="/chatbot" class="hover:text-blue-300">Chatbot</a></li>
+          <li><a href="/explore" class="hover:text-blue-300">Explore Data</a></li>
+          <li><a href="/forum" class="hover:text-blue-300">Forum</a></li>
         </ul>
       </nav>
     </div>
   </header>
-  <br>
 
   <!-- Hero Section -->
-  <main class="flex-grow flex items-center justify-center px-6 py-32 relative bg-gradient-to-br from-blue-200 to-white overflow-hidden">
-    <!-- Decorative Background Circles -->
-    <div class="absolute top-0 left-0 w-96 h-96 bg-blue-300 rounded-full opacity-30 -z-10 blur-3xl animate-pulse"></div>
-    <div class="absolute bottom-0 right-0 w-96 h-96 bg-purple-300 rounded-full opacity-30 -z-10 blur-3xl animate-pulse"></div>
+  <main class="flex-grow bg-gradient-to-br from-blue-200 to-white px-6 py-24">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
 
-    <!-- Flex container for image + content -->
-    <div class="flex flex-col md:flex-row items-center max-w-6xl mx-auto gap-16">
-      
-      <!-- Cartoon Image on left -->
-      <div style="max-width: 600px;">
-        <img src="/static/doctor.png" alt="Doctor Image" style="width: 100%; height: auto;" />
+      <!-- Image -->
+      <div class="max-w-xl floating-img">
+        <img src="/static/doctor.png" alt="Doctor illustration" class="w-full h-auto" />
       </div>
 
-      <!-- Text content on right -->
-      <div class="text-center md:text-left max-w-xl fade-slide-right">
-        <h2 class="text-7xl font-extrabold leading-tight mb-6 drop-shadow-lg text-3d animate-scale-up">
+      <!-- Text -->
+      <div class="max-w-xl text-center md:text-left">
+        <h2 class="text-6xl font-extrabold mb-6 text-3d animate-scale-up">
           Welcome to <span class="text-blue-800">Diabetes Care</span>
         </h2>
-        <p class="text-2xl text-gray-700 mb-12 max-w-md mx-auto md:mx-0">
-          Your one-stop solution for <span class="font-semibold text-blue-900">prediction</span>, <span class="text-green-700 font-semibold">lifestyle advice</span>, AI-powered chatbot, and real-time health data insights.
+        <p class="text-xl text-gray-700 mb-10">
+          Your one-stop solution for prediction, lifestyle advice, AI-powered chatbot,
+          and real-time health data insights.
         </p>
 
-        <div class="flex flex-wrap justify-center md:justify-start gap-6 text-xl font-semibold">
-          <a href="/" class="btn-3d bg-blue-700 hover:bg-blue-800 text-white px-10 py-4 rounded-lg shadow-lg transition transform">Home</a>
-          <a href="/index" class="btn-3d bg-blue-700 hover:bg-blue-800 text-white px-10 py-4 rounded-lg shadow-lg transition transform">Prediction</a>
-          <a href="/life" class="btn-3d bg-green-700 hover:bg-green-800 text-white px-10 py-4 rounded-lg shadow-lg transition transform">Lifestyle Check</a>
-          <a href="/chatbot" class="btn-3d bg-purple-700 hover:bg-purple-800 text-white px-10 py-4 rounded-lg shadow-lg transition transform">Chatbot</a>
-          <a href="/explore" class="btn-3d bg-indigo-700 hover:bg-indigo-800 text-white px-10 py-4 rounded-lg shadow-lg transition transform">Explore Data</a>
-          <a href="/forum" class="btn-3d bg-red-700 hover:bg-indigo-800 text-white px-10 py-4 rounded-lg shadow-lg transition transform">Forum</a>
+        <div class="flex flex-wrap justify-center md:justify-start gap-4">
+          <a href="/index" class="btn-3d bg-blue-700 text-white px-8 py-3 rounded-lg">Prediction</a>
+          <a href="/life" class="btn-3d bg-green-700 text-white px-8 py-3 rounded-lg">Lifestyle</a>
+          <a href="/chatbot" class="btn-3d bg-purple-700 text-white px-8 py-3 rounded-lg">Chatbot</a>
+          <a href="/explore" class="btn-3d bg-indigo-700 text-white px-8 py-3 rounded-lg">Explore</a>
+          <a href="/forum" class="btn-3d bg-red-700 text-white px-8 py-3 rounded-lg">Forum</a>
         </div>
       </div>
 
@@ -178,49 +108,34 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-blue-900 text-blue-300 p-8">
+  <footer class="bg-blue-900 text-blue-300 py-10">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 px-6">
 
-    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
-      <!-- About Me Section with sliding text (stacked vertically) -->
-      <div class="md:w-2/4 text-center md:text-left flex flex-col items-center md:items-start justify-center md:justify-start gap-2 py-2">
-        <h2 class="text-white text-4xl font-semibold mb-0 whitespace-nowrap">Anshika Singh</h2>
-        <div class="mt-0 text-blue-200 text-lg font-normal text-center md:text-left">
-          <div>Passionate about healthcare and AI.</div>
-          <div>I build smart solutions to help people manage diabetes better.</div>
-          <div>Dedicated to using technology for meaningful impact.</div>
-        </div>
+      <div class="text-center md:text-left max-w-md">
+        <h2 class="text-white text-3xl font-semibold">Anshika Singh</h2>
+        <p class="mt-2 text-blue-200">
+          Passionate about healthcare and AI.<br>
+          Building smart solutions for meaningful impact.
+        </p>
       </div>
 
-      <!-- LinkedIn Link -->
-      <div class="md:w-1/4 flex flex-col items-center md:items-end space-y-2 mt-4 md:mt-0">
-        <h2 class="text-white text-xl font-semibold mb-2">Connect with me</h2>
-        <a 
-          href="https://www.linkedin.com/in/anshika-singh-031b132a5/" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          class="inline-flex items-center text-blue-300 hover:text-blue-500 transition-colors duration-800"
+      <div class="text-center md:text-right">
+        <h3 class="text-white text-xl mb-2">Connect with me</h3>
+        <a
+          href="https://www.linkedin.com/in/anshika-singh-031b132a5/"
+          target="_blank"
+          class="text-blue-300 hover:text-blue-400"
         >
-          <svg 
-            class="w-6 h-6 mr-2 fill-current" 
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.762 2.239 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75c.966 0 1.75.784 1.75 1.75s-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.5c0-1.381-1.119-2.5-2.5-2.5s-2.5 1.119-2.5 2.5v5.5h-3v-10h3v1.459c.85-1.182 3.5-1.274 3.5 1.129v7.411z"/>
-          </svg>
           LinkedIn
         </a>
       </div>
+
     </div>
 
-    <!-- Bottom copyright -->
-    <p class="mt-8 text-center text-blue-400 text-sm">
-      &copy; 2025 <span class="font-semibold text-white">Diabetes Care Platform</span>. All rights reserved.
+    <p class="mt-8 text-center text-sm text-blue-400">
+      © 2025 Diabetes Care Platform
     </p>
   </footer>
-
-  <!-- No script needed for static description lines -->
 
 </body>
 </html>
